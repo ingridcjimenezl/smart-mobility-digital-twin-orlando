@@ -1,6 +1,7 @@
 name: Bird Orlando Data Collection
 
 on:
+  push:
   workflow_dispatch:
   schedule:
     - cron: "0 12 * * *"
