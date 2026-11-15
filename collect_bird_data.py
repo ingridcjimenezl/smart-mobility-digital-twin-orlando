@@ -1,7 +1,6 @@
 import requests
 import pandas as pd
-from datetime import datetime
-from zoneinfo import ZoneInfo
+from datetime import datetime, timezone
 from pathlib import Path
 
 #Public Bird GBFS feed for Orlando
@@ -22,9 +21,7 @@ def collect_bird_data ():
     df = pd.DataFrame (vehicles)
 
     # Record the collection date and local time
-    df ["collection_time"] = datetime.now (
-          ZoneInfo ("America/NewYork")
-    ).isoformat()
+    df ["collection_time"] = datetime.now (timezone.utc).isoformat()
 
     # Create folder if it does not exist
     OUTPUT_FILE.parent.mkdir (parents=True, exist_ok=True)
