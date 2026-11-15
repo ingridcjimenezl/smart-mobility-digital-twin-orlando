@@ -29,8 +29,13 @@ jobs:
         run: python collect_bird_data.py
 
       - name: Save historical CSV
-        run:
-          git config user.name "github-actions[bot]
+        run: |
+          git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/bird_orlando_history.csv
-          git diff --cached --quiet || (git commit -m "Update Bird historical data" && git push)
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Bird historical data"
+            git push
+          else
+            echo "No new data changes to save"
+          fi
