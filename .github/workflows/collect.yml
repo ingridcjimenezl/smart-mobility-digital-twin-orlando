@@ -1,0 +1,36 @@
+name: Bird Orlando Data Collection
+
+on:
+  schedule:
+  - cron: "0 12,14,16,18,21,23 15-22 11 *"
+  - cron: "0 1,3 16-23 11 *
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+
+  steps:
+    - name: Get repository files
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        Python-version: "3.11"
+
+    - name: Install libraries
+      run: pip install requests pandas
+
+    - name: Collect Bird data
+      run: python collect_bird_data.py
+
+    - name: Save historical CSV
+      run:
+        git config user.name "github-actions[bot]
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add data/bird_orlando_history.csv
+        git diff --cached --quiet || (git commit -m "Update Bird historical data" && git push)
