@@ -36,7 +36,7 @@ def collect_bird_data ():
       header = not OUTPUT_FILE.exists (),
       index=False
     )
-    print (f"Collection successful:" {len(df)} vehicles")
-    print (f"Saved to: {OUTPUT_FILE}")
+    print(f"Collection successful: {len(df)} vehicles")
+    print(f"Saved to: {OUTPUT_FILE}")
 if __name__ == "__main__":
     collect_bird_data ()
