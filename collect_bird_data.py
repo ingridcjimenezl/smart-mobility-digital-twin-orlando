@@ -10,6 +10,10 @@ BIRD_URL = "https://mds.bird.co/gbfs/v2/public/orlando/free_bike_status.json"
 OUTPUT_FILE = Path ("data/bird_orlando_history.csv")
 
 def collect_bird_data ():
+    cutoff = datetime (2026, 11, 23, 2, 0, tzinfo=timezone.utc)
+    if datetime.now(timezone.utc)> cutoff:
+        print ("Collection period ended. No more data will be collected.")
+        return
     response = requests.get (BIRD_URL, timeout=30)
     response.raise_for_status()
 
